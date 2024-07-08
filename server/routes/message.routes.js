@@ -1,8 +1,8 @@
 const express = require('express')
-const sendMessages = require('../controllers/message.controller')
+const sendMessage = require('../controllers/message.controller')
+const protectRoute = require('../middleware/protectRoute')
 
 const router = express.Router()
-router.post('/send/:id', sendMessages)
-
+router.post('/send/:id', protectRoute, sendMessage)
 
 module.exports = router
