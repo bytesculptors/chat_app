@@ -23,7 +23,10 @@ const sendMessage = async (req, res) => {
         if (newMessage) {
             conversation.messages.push(newMessage._id)
         }
-        await newMessage.save();
+        // await newMessage.save();
+        // await conversation.save();
+        await Promise.all([newMessage.save(), conversation.save()])
+
         res.status(201).json(newMessage)
     } catch (error) {
         console.log(error.message);
