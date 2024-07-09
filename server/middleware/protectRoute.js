@@ -1,4 +1,4 @@
-const jwt = require('jwt')
+const jwt = require('jsonwebtoken')
 const User = require('../models/user.model')
 
 const protectRoute = async (req, res, next) => {
@@ -11,7 +11,7 @@ const protectRoute = async (req, res, next) => {
         if (!decoded) {
             return res.status(401).json({ error: 'Unauthorized - Invalid token!' })
         }
-        const user = await User.findById(decoded.userId)
+        const user = await User.findById(decoded.userId).select("-password")
         if (!user) {
             return res.status(401).json({ error: 'User not found!' })
         }
