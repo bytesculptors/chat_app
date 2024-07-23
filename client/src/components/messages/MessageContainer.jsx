@@ -4,7 +4,7 @@ import MessageInput from './MessageInput'
 import NoChatSelected from './NoChatSelected'
 
 const MessageContainer = () => {
-    const noChatSelected = true
+    const noChatSelected = false
     return (
         <div className='md:min-w-[450px] flex flex-col'>
             {noChatSelected ? <NoChatSelected /> : (
