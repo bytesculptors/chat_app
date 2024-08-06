@@ -36,11 +36,11 @@ const logout = async (req, res) => {
 }
 const signup = async (req, res) => {
     try {
-        const { fullName, userName, password, confirmedPassword, gender } = req.body
-        if (password !== confirmedPassword) {
+        const { fullname, username, password, confirmPassword, gender } = req.body
+        if (password !== confirmPassword) {
             res.status(400).json({ error: "Passwords don't match" })
         }
-        const user = await User.findOne({ userName })
+        const user = await User.findOne({ username })
         if (user) {
             res.status(400).json({ error: "Username already exists" })
         }
@@ -48,12 +48,12 @@ const signup = async (req, res) => {
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(password, salt)
 
-        const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${userName}`
-        const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${userName}`
+        const boyProfilePic = `https://avatar.iran.liara.run/public/boy?username=${username}`
+        const girlProfilePic = `https://avatar.iran.liara.run/public/girl?username=${username}`
 
         const newUser = new User({
-            fullName,
-            userName,
+            fullName: fullname,
+            userName: username,
             password: hashedPassword,
             gender,
             profilePicture: gender === 'male' ? boyProfilePic : girlProfilePic
