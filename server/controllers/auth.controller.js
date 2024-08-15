@@ -4,8 +4,8 @@ const generateTokenAndSetCookie = require('../utils/generateToken');
 
 const login = async (req, res) => {
     try {
-        const { userName, password } = req.body
-        const user = await User.findOne({ userName })
+        const { username, password } = req.body
+        const user = await User.findOne({ userName: username })
         if (!user) {
             return res.status(400).json({ error: 'Username does not exist!' })
         }
